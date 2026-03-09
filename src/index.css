@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 深色科技风格 - 电力看板主题 */
+    --background: 220 30% 5%;
+    --foreground: 210 20% 98%;
+    --card: 220 25% 8%;
+    --card-foreground: 210 20% 98%;
+    --popover: 220 25% 8%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 12%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 188 94% 43%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
+    
+    /* 风险等级颜色 */
+    --risk-extreme: 0 84% 50%;
+    --risk-high: 25 95% 53%;
+    --risk-medium: 45 93% 47%;
+    --risk-low: 142 71% 45%;
+    --risk-info: 217 91% 60%;
+    
+    /* 图表颜色 */
+    --chart-1: 217 91% 60%;
+    --chart-2: 188 94% 43%;
+    --chart-3: 142 71% 45%;
+    --chart-4: 45 93% 47%;
+    --chart-5: 25 95% 53%;
+    --chart-6: 0 84% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+}
+
+@layer components {
+  /* 卡片样式 */
+  .dashboard-card {
+    @apply bg-card border border-border rounded-lg p-4;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dashboard-card:hover {
+    @apply border-primary/50;
+    transform: translateY(-2px);
+    transition: all 0.2s ease-out;
+  }
+  
+  /* KPI数字样式 */
+  .kpi-number {
+    font-family: 'JetBrains Mono', monospace;
+    @apply font-bold tracking-tight;
+  }
+  
+  /* 风险等级标签 */
+  .risk-badge-extreme {
+    @apply bg-red-600 text-white px-2 py-0.5 rounded text-xs font-medium;
+  }
+  
+  .risk-badge-high {
+    @apply bg-orange-500 text-white px-2 py-0.5 rounded text-xs font-medium;
+  }
+  
+  .risk-badge-medium {
+    @apply bg-yellow-500 text-black px-2 py-0.5 rounded text-xs font-medium;
+  }
+  
+  .risk-badge-low {
+    @apply bg-green-500 text-white px-2 py-0.5 rounded text-xs font-medium;
+  }
+  
+  .risk-badge-info {
+    @apply bg-blue-500 text-white px-2 py-0.5 rounded text-xs font-medium;
+  }
+  
+  /* 闪烁动画 - 告警 */
+  .blink-alert {
+    animation: blink-red 1s ease-in-out infinite;
+  }
+  
+  @keyframes blink-red {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  
+  /* 渐变边框 */
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card)) 100%);
+    border-radius: var(--radius);
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  /* 玻璃效果 */
+  .glass-effect {
+    @apply backdrop-blur-md bg-card/80;
+  }
+  
+  /* 区域标题 */
+  .section-title {
+    @apply text-lg font-semibold text-foreground flex items-center gap-2;
+  }
+  
+  .section-title::before {
+    content: '';
+    @apply w-1 h-5 bg-primary rounded-full;
+  }
+  
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted rounded;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer utilities {
+  /* 文字渐变 */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+  
+  /* 动画延迟工具类 */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+}
